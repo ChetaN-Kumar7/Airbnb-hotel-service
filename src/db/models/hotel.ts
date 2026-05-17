@@ -9,8 +9,8 @@ class Hotel extends Model<InferAttributes<Hotel>, InferCreationAttributes<Hotel>
     declare location: string;
     declare created_at : CreationOptional<Date>
     declare updated_at : CreationOptional<Date>
-    declare rating: number;
-    declare ratingCount: number;
+    declare rating?: number;
+    declare ratingCount?: number;
 }
 
 Hotel.init({
