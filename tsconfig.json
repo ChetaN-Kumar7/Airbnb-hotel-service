@@ -115,6 +115,6 @@
   ],
   "exclude": [
     "node_modules",
-    ".sequelizerc"
+    //".sequelizerc"
   ]
 }
