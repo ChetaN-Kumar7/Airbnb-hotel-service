@@ -5,7 +5,8 @@ import v2Router from './routers/v2/index.router';
 import { appErrorHandler, genericErrorHandler } from './middlewares/error.middleware';
 import logger from './config/logger.config';
 import { attachCorrelationIdMiddleware } from './middlewares/correlation.middleware';
-import { addEmailToQueue } from './producers/email.producer';
+import { setUpMailerWorker } from './processors/email.processor';
+import { addEmailToQueue } from './producer/email.producer';
 const app = express();
 
 app.use(express.json());
@@ -27,17 +28,20 @@ app.use(appErrorHandler);
 app.use(genericErrorHandler);
 
 
-app.listen(serverConfig.PORT, () => {
+app.listen(serverConfig.PORT,async () => {
     logger.info(`Server is running on http://localhost:${serverConfig.PORT}`);
     logger.info(`Press Ctrl+C to stop the server.`);
+    setUpMailerWorker();
+    logger.info(`Mailer worker setup completed`);
 
     addEmailToQueue({
-        to:"sample",
-        subject :"Sample email",
-        templateId: "sample-template",
-        params :{
-            name : "sbasj",
-            orderId: "12345"
+        to: "chetan1905050100017@gmail.com",
+        subject: "test email",
+        templateId: "welcome",
+        params:{
+            name: "Chetan Kumar",
+            appName: "Booking app"
         }
     })
+
 });
