@@ -6,6 +6,7 @@ import { appErrorHandler, genericErrorHandler } from './middlewares/error.middle
 import logger from './config/logger.config';
 import { attachCorrelationIdMiddleware } from './middlewares/correlation.middleware';
 import sequelize from './db/models/sequelize';
+import { setupRoomGenerationWorker } from './processor/roomGeneration.processor';
 const app = express();
 
 app.use(express.json());
@@ -37,4 +38,6 @@ app.listen(serverConfig.PORT,async () => {
     } catch (error) {
         logger.error("Something went wrong")
     }
+
+    setupRoomGenerationWorker();
 });

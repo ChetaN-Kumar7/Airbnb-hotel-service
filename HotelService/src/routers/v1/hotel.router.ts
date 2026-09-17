@@ -1,7 +1,8 @@
 import express from 'express';
 import {  validateRequestBody } from '../../validators';
 import { hotelSchema } from '../../validators/hotel.validator';
-import { createHotelHandler, getAllHotelHandler, getHotelByIdcHandler, updateHotelHandler } from '../../controllers/hotel.controller';
+import { createHotelHandler, deleteHotelHandler, getAllHotelHandler, getHotelByIdcHandler } from '../../controllers/hotel.controller';
+
 
 const hotelRouter = express.Router();
 
@@ -10,6 +11,7 @@ hotelRouter.post('/', validateRequestBody(hotelSchema), createHotelHandler); // 
 hotelRouter.get('/:id', getHotelByIdcHandler);
 
 hotelRouter.get('/', getAllHotelHandler);
-hotelRouter.patch('/:id',updateHotelHandler);
+// hotelRouter.patch('/:id',updateHotelHandler);
+hotelRouter.delete('/:id',deleteHotelHandler);
 
 export default hotelRouter;

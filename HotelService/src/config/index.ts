@@ -2,14 +2,17 @@
 import dotenv from 'dotenv';
 
 type ServerConfig = {
-    PORT: number
+    PORT: number,
+    REDIS_PORT?: number,
+    REDIS_HOST?: string
 }
 
 type dbConfig ={
     DB_HOST: string,
     DB_USER: string,
     DB_PASSWORD: string,
-    DB_NAME: string
+    DB_NAME: string,
+    
 }
 
 function loadEnv() {
@@ -20,7 +23,9 @@ function loadEnv() {
 loadEnv();
 
 export const serverConfig: ServerConfig = {
-    PORT: Number(process.env.PORT) || 3001
+    PORT: Number(process.env.PORT) || 3001,
+    REDIS_HOST : process.env.REDIS_HOST || 'localhost',
+    REDIS_PORT : process.env.REDIS_PORT ? Number(process.env.REDIS_PORT) : 6379
 };
 
 export const dbConfig: dbConfig = {
@@ -28,4 +33,5 @@ export const dbConfig: dbConfig = {
     DB_USER : process.env.DB_USER || 'root',
     DB_PASSWORD : process.env.DB_PASSWORD || 'root',
     DB_NAME :  process.env.DB_NAME || 'test_db'
+    
 }
